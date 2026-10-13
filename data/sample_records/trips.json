@@ -1,0 +1,34 @@
+{
+  "trips": [
+    {
+      "trip_id": "TRIP-2408-003",
+      "destination": "北京",
+      "city_tier": "A",
+      "start_date": "2026-08-05",
+      "end_date": "2026-08-07",
+      "approved": true,
+      "vp_exception_approved": false,
+      "budget": 4000
+    },
+    {
+      "trip_id": "TRIP-2409-017",
+      "destination": "上海",
+      "city_tier": "A",
+      "start_date": "2026-09-12",
+      "end_date": "2026-09-14",
+      "approved": true,
+      "vp_exception_approved": false,
+      "budget": 2600
+    },
+    {
+      "trip_id": "TRIP-2410-006",
+      "destination": "苏州",
+      "city_tier": "B",
+      "start_date": "2026-10-03",
+      "end_date": "2026-10-04",
+      "approved": true,
+      "vp_exception_approved": false,
+      "budget": 1800
+    }
+  ]
+}

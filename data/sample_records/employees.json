@@ -1,0 +1,25 @@
+{
+  "employees": [
+    {
+      "employee_id": "EMP-001",
+      "name": "张敏",
+      "department": "财务运营部",
+      "grade": "P5",
+      "travel_tier": "premium"
+    },
+    {
+      "employee_id": "EMP-003",
+      "name": "林晓雪",
+      "department": "解决方案工程部",
+      "grade": "P4",
+      "travel_tier": "standard"
+    },
+    {
+      "employee_id": "EMP-008",
+      "name": "陈涛",
+      "department": "客户成功部",
+      "grade": "P3",
+      "travel_tier": "standard"
+    }
+  ]
+}

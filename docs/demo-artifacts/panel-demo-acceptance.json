@@ -1,0 +1,133 @@
+{
+  "assertions": {
+    "agent": {
+      "failures": [],
+      "passed": true,
+      "rounds": 3
+    },
+    "rag": {
+      "failures": [],
+      "passed": true,
+      "rounds": 3
+    },
+    "refusal": {
+      "failures": [],
+      "passed": true,
+      "rounds": 3
+    }
+  },
+  "backend": {
+    "kind": "real-local",
+    "model_digest": "aca596860e8cb40af6539e3f2ea40df305f42515deac56d49c08d39a02e6533f",
+    "model_id": "Qwen/Qwen3-4B-GGUF",
+    "model_revision": "bc640142c66e1fdd12af0bd68f40445458f3869b"
+  },
+  "execution_surface": "panel-coordinator",
+  "generated_at_utc": "2026-10-11T20:47:37.168867+00:00",
+  "git_commit": "39d8f6216f9f718a2281c9d23bfb086a4bd013e9",
+  "hardware": {
+    "cpu_count": 32,
+    "machine": "AMD64",
+    "model_bytes": 4146440495,
+    "platform": "Windows-11-10.0.26300-SP0"
+  },
+  "initialization": {
+    "runtime_ready_seconds": 9.178676199997426,
+    "stages": [
+      {
+        "duration_ms": 4.172300003119744,
+        "name": "CHECKING_CONFIG",
+        "status": "succeeded"
+      },
+      {
+        "duration_ms": 4.9663999961921945,
+        "name": "LOADING_INDEX",
+        "status": "succeeded"
+      },
+      {
+        "duration_ms": 2838.017800007947,
+        "name": "LOADING_RETRIEVER",
+        "status": "succeeded"
+      },
+      {
+        "duration_ms": 989.3982999928994,
+        "name": "LOADING_RERANKER",
+        "status": "succeeded"
+      },
+      {
+        "duration_ms": 5341.9187999970745,
+        "name": "PREPARING_DEFAULT_LOCAL_GENERATOR",
+        "status": "succeeded"
+      },
+      {
+        "duration_ms": 0.031799994758330286,
+        "name": "READY",
+        "status": "succeeded"
+      }
+    ],
+    "ui_available_seconds": 3.3199990866705775e-05
+  },
+  "load_counters": {
+    "encoder": 1,
+    "index": 1,
+    "local_generator": 1,
+    "reranker": 1,
+    "support_scorer": 1,
+    "tools": 1
+  },
+  "network_attempts": 0,
+  "online": "online-attempted-not-verified",
+  "peak_ram_bytes": 7009529856,
+  "peak_vram_mib": null,
+  "percentiles": {
+    "agent": {
+      "max_seconds": 24.878053200009163,
+      "p50_seconds": 24.77984629999264,
+      "p95_seconds": 24.878053200009163,
+      "samples_seconds": [
+        23.76993609999772,
+        24.878053200009163,
+        24.77984629999264
+      ]
+    },
+    "rag": {
+      "max_seconds": 15.23902540000563,
+      "p50_seconds": 7.7653870999929495,
+      "p95_seconds": 15.23902540000563,
+      "samples_seconds": [
+        15.23902540000563,
+        7.024967999997898,
+        7.7653870999929495
+      ]
+    },
+    "refusal": {
+      "max_seconds": 0.6799183999974048,
+      "p50_seconds": 0.6597810999955982,
+      "p95_seconds": 0.6799183999974048,
+      "samples_seconds": [
+        0.5849940999905812,
+        0.6597810999955982,
+        0.6799183999974048
+      ]
+    }
+  },
+  "scenarios": {
+    "agent": [
+      23.76993609999772,
+      24.878053200009163,
+      24.77984629999264
+    ],
+    "rag": [
+      15.23902540000563,
+      7.024967999997898,
+      7.7653870999929495
+    ],
+    "refusal": [
+      0.5849940999905812,
+      0.6597810999955982,
+      0.6799183999974048
+    ]
+  },
+  "schema_version": 1,
+  "ui_availability_note": "ui_available_seconds measures route/shell registration, not browser paint"
+}

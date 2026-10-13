@@ -1,0 +1,10 @@
+{
+  "package": "nicegui",
+  "version": "3.18.0",
+  "source": "https://pypi.org/simple",
+  "python": "3.12",
+  "approved_at": "2026-10-11T13:03:55Z",
+  "approval_scope": "metadata, lockfile update, and panel-extra installation",
+  "model_downloads": false,
+  "real_api_calls": false
+}

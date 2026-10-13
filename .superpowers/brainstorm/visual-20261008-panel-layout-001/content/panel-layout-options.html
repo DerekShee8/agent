@@ -1,0 +1,93 @@
+<style>
+  .intro-note { color: var(--muted); margin: 0 0 18px; }
+  .layout-card { min-height: 430px; }
+  .wireframe { height: 285px; padding: 12px; background: #0f172a; color: #dbeafe; border-radius: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 11px; }
+  .wf-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .wf-title { font-weight: 700; color: #f8fafc; font-size: 13px; }
+  .wf-badge { border: 1px solid #334155; background: #172033; padding: 3px 7px; border-radius: 999px; color: #93c5fd; }
+  .wf-query { padding: 8px 10px; border: 1px solid #334155; border-radius: 7px; color: #e2e8f0; background: #111827; }
+  .wf-stage-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .wf-stage { padding: 7px 3px; text-align: center; border-radius: 6px; background: #1e293b; border: 1px solid #334155; }
+  .wf-stage.ok { border-color: #10b981; color: #a7f3d0; }
+  .wf-grid { display: grid; grid-template-columns: 1.35fr .85fr; gap: 7px; flex: 1; min-height: 0; }
+  .wf-panel { border: 1px solid #334155; background: #111827; border-radius: 7px; padding: 8px; overflow: hidden; }
+  .wf-panel strong { display: block; color: #f8fafc; margin-bottom: 6px; }
+  .wf-line { height: 6px; border-radius: 4px; background: #263449; margin: 5px 0; }
+  .wf-line.short { width: 58%; }
+  .wf-line.mid { width: 78%; }
+  .wf-cite { color: #86efac; margin-top: 8px; }
+  .wf-tool { padding: 5px 7px; border-left: 3px solid #38bdf8; background: #172033; margin: 5px 0; }
+  .three-col { display: grid; grid-template-columns: .7fr 1.35fr .95fr; gap: 7px; flex: 1; min-height: 0; }
+  .split { display: grid; grid-template-columns: 1.05fr .95fr; gap: 7px; flex: 1; min-height: 0; }
+  .chat-bubble { padding: 8px; background: #172033; border-radius: 8px; margin: 6px 0; }
+  .chat-bubble.user { margin-left: 24px; background: #1e3a5f; }
+  .tab-row { display: flex; gap: 4px; margin-bottom: 7px; }
+  .tab { padding: 4px 6px; background: #1e293b; border-radius: 5px; color: #94a3b8; }
+  .tab.active { color: #e0f2fe; outline: 1px solid #38bdf8; }
+  .rec { display: inline-flex; align-items: center; gap: 6px; color: #0f766e; font-weight: 700; font-size: 12px; margin-bottom: 6px; }
+</style>
+
+<section>
+  <h2>未来工程演示面板：先选整体布局</h2>
+  <p class="intro-note">三种方案都展示同一条真实链路：双路召回 → Reranker → Evidence Gate → Generator → Grounding Validator → Agent 工具。差别只在信息如何组织。</p>
+
+  <div class="cards">
+    <article class="card layout-card" data-choice="A：流水线工作台" onclick="toggleSelect(this)">
+      <div class="card-image">
+        <div class="wireframe">
+          <div class="wf-top"><span class="wf-title">Enterprise RAG Agent</span><span class="wf-badge">离线 · Qwen3-4B · 3.8s</span></div>
+          <div class="wf-query">解释 EMP-003 的 CLAIM-1024 为什么被拒绝？</div>
+          <div class="wf-stage-row">
+            <div class="wf-stage ok">双路召回<br>20</div><div class="wf-stage ok">重排<br>Top 5</div><div class="wf-stage ok">证据门<br>PASS</div><div class="wf-stage ok">生成<br>1 次</div><div class="wf-stage ok">验证<br>PASS</div>
+          </div>
+          <div class="wf-grid">
+            <div class="wf-panel"><strong>回答与依据</strong><div class="wf-line"></div><div class="wf-line"></div><div class="wf-line mid"></div><div class="wf-cite">[POLICY-TRAVEL-04 §3.2] [CLAIM-1024]</div></div>
+            <div class="wf-panel"><strong>当前节点详情</strong><div>RRF 融合排名</div><div class="wf-line"></div><div class="wf-line short"></div><div class="wf-tool">get_expense_claim ✓</div><div class="wf-tool">get_business_trip ✓</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="rec">★ 推荐</div>
+        <div class="card-title">A. 流水线工作台</div>
+        <div class="card-description">链路横向展开，点击任一阶段查看证据、分数、工具和耗时。最能突出“我做了完整且可审计的 RAG + Agent 工程”。</div>
+      </div>
+    </article>
+
+    <article class="card layout-card" data-choice="B：三栏运维控制台" onclick="toggleSelect(this)">
+      <div class="card-image">
+        <div class="wireframe">
+          <div class="wf-top"><span class="wf-title">Run Console</span><span class="wf-badge">Run #A102</span></div>
+          <div class="three-col">
+            <div class="wf-panel"><strong>运行与配置</strong><div>本地生成器</div><div class="wf-line"></div><div>最近运行</div><div class="wf-line"></div><div class="wf-line"></div><div class="wf-line short"></div></div>
+            <div class="wf-panel"><strong>回答</strong><div class="wf-query">解释 CLAIM-1024</div><div class="wf-line"></div><div class="wf-line"></div><div class="wf-line mid"></div><div class="wf-cite">引用 2 条 · 已验证</div><div class="wf-tool">最终结论：超出住宿标准</div></div>
+            <div class="wf-panel"><strong>证据与轨迹</strong><div class="wf-stage ok">Evidence Gate PASS</div><div class="wf-tool">Retriever 20</div><div class="wf-tool">Reranker 5</div><div class="wf-tool">Tool calls 2</div><div class="wf-line"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">B. 三栏运维控制台</div>
+        <div class="card-description">配置、答案、证据同时常驻，信息密度最高。适合深入追问，但 16 英寸屏幕上容易显得拥挤。</div>
+      </div>
+    </article>
+
+    <article class="card layout-card" data-choice="C：对话式分屏" onclick="toggleSelect(this)">
+      <div class="card-image">
+        <div class="wireframe">
+          <div class="wf-top"><span class="wf-title">RAG Copilot</span><span class="wf-badge">安全模式</span></div>
+          <div class="split">
+            <div class="wf-panel"><strong>对话</strong><div class="chat-bubble user">为什么我的差旅报销被拒？</div><div class="chat-bubble"><div class="wf-line"></div><div class="wf-line"></div><div class="wf-line mid"></div><div class="wf-cite">查看 2 条来源</div></div></div>
+            <div class="wf-panel"><div class="tab-row"><span class="tab active">证据</span><span class="tab">工具</span><span class="tab">轨迹</span><span class="tab">耗时</span></div><strong>POLICY-TRAVEL-04</strong><div class="wf-line"></div><div class="wf-line"></div><div class="wf-tool">Gate PASS · 0.12s</div><div class="wf-tool">Validator PASS</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">C. 对话式分屏</div>
+        <div class="card-description">最像成熟聊天产品，上手最直观；工程细节收进标签页，面试展示技术链路时需要更多点击。</div>
+      </div>
+    </article>
+  </div>
+
+  <div class="actions">
+    <button class="primary" onclick="submitChoice()">确认这个布局方向</button>
+  </div>
+</section>

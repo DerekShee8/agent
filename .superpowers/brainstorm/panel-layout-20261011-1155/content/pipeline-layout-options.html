@@ -1,0 +1,96 @@
+<style>
+  .layout-grid { display:grid; grid-template-columns:repeat(3,minmax(280px,1fr)); gap:18px; align-items:start; }
+  .layout-card { border:1px solid #d8dee8; border-radius:14px; background:#fff; overflow:hidden; cursor:pointer; transition:.18s ease; }
+  .layout-card:hover { transform:translateY(-2px); box-shadow:0 10px 25px rgba(25,35,55,.10); }
+  .layout-card.selected { outline:3px solid #4f7cff; border-color:#4f7cff; }
+  .card-label { padding:14px 16px 10px; border-bottom:1px solid #e6eaf0; }
+  .card-label h3 { margin:0 0 5px; font-size:17px; }
+  .card-label p { margin:0; font-size:13px; line-height:1.4; color:#657084; }
+  .recommended { display:inline-block; margin-left:7px; padding:2px 7px; border-radius:10px; background:#e8f0ff; color:#315db8; font-size:11px; }
+  .wire { padding:12px; background:#f4f6f9; min-height:330px; font-size:10px; color:#334155; }
+  .toolbar { display:flex; gap:5px; align-items:center; padding:7px; background:#172033; color:#fff; border-radius:7px; margin-bottom:8px; }
+  .field { flex:1; padding:5px 7px; border-radius:4px; background:#fff; color:#64748b; }
+  .pill { padding:4px 7px; border-radius:9px; background:#2c3b57; white-space:nowrap; }
+  .safe { background:#116149; }
+  .run { background:#3569dc; }
+  .two-col { display:grid; grid-template-columns:2.15fr 1fr; gap:7px; }
+  .panel { border:1px solid #cdd5e1; background:#fff; border-radius:7px; padding:7px; }
+  .panel-title { font-weight:700; font-size:10px; margin-bottom:6px; color:#172033; }
+  .lane { display:flex; gap:4px; align-items:center; flex-wrap:wrap; margin:6px 0; }
+  .node { padding:5px 6px; border-radius:5px; border:1px solid #bbc6d6; background:#fff; font-weight:600; }
+  .node.active { background:#e8f0ff; border-color:#4f7cff; color:#244fa4; }
+  .node.good { background:#eaf8f1; border-color:#59a77f; }
+  .node.warn { background:#fff5dc; border-color:#d9a62a; }
+  .arrow { color:#8793a5; }
+  .branch { display:grid; grid-template-columns:1fr 1fr; gap:4px; width:110px; }
+  .mini-row { height:7px; border-radius:4px; background:#d9e1ec; margin:5px 0; }
+  .mini-row.blue { background:#9ab7fa; }
+  .mini-row.green { background:#92d0b2; }
+  .answer { margin-top:7px; border-left:4px solid #39a070; }
+  .timeline { position:relative; padding-left:14px; }
+  .timeline:before { content:""; position:absolute; left:6px; top:6px; bottom:6px; border-left:2px solid #b8c2d0; }
+  .t-step { position:relative; margin:0 0 7px; padding:6px 7px; background:#fff; border:1px solid #ced6e2; border-radius:6px; }
+  .t-step:before { content:""; position:absolute; left:-12px; top:10px; width:7px; height:7px; border-radius:50%; background:#4f7cff; }
+  .wide-pipeline { margin-bottom:7px; }
+  .bottom-split { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+  .note { margin-top:12px; padding:10px 12px; border-radius:8px; background:#eef3fb; color:#40506a; font-size:13px; }
+  @media (max-width: 1050px) { .layout-grid { grid-template-columns:1fr; } }
+</style>
+
+<h2>首版流水线工作台：选择主布局</h2>
+<p class="subtitle">重点比较：面试官能否一眼看懂证据链、点击阶段查看细节，以及 Agent 长轨迹是否仍清楚。</p>
+
+<div class="layout-grid">
+  <div class="layout-card option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <h3>A. 横向主链 + 固定 Inspector <span class="recommended">推荐</span></h3>
+      <p>最贴合“流水线工作台”，证据链与控制点在一屏内左右对应。</p>
+    </div>
+    <div class="wire">
+      <div class="toolbar"><div class="field">解释 CLAIM-1024 为什么被拒绝</div><div class="pill">Agent</div><div class="pill">Local</div><div class="pill run">Run</div><div class="pill safe">OFFLINE</div></div>
+      <div class="two-col">
+        <div>
+          <div class="panel">
+            <div class="panel-title">RAG PIPELINE · 18.4s</div>
+            <div class="lane"><div class="branch"><span class="node good">Dense</span><span class="node good">Sparse</span></div><span class="arrow">→</span><span class="node good">RRF</span><span class="arrow">→</span><span class="node active">Rerank</span><span class="arrow">→</span><span class="node warn">Gate</span></div>
+            <div class="lane"><span class="node">Generate</span><span class="arrow">→</span><span class="node">Validate</span></div>
+            <div class="panel-title" style="margin-top:9px">AGENT TRACE</div>
+            <div class="lane"><span class="node good">Plan 1</span><span class="arrow">→</span><span class="node good">Tool</span><span class="arrow">→</span><span class="node active">Search knowledge</span></div>
+          </div>
+          <div class="panel answer"><div class="panel-title">ANSWER · GROUNDED</div><div class="mini-row blue" style="width:92%"></div><div class="mini-row" style="width:76%"></div><div class="mini-row green" style="width:54%"></div></div>
+        </div>
+        <div class="panel" style="min-height:250px"><div class="panel-title">INSPECTOR · RERANK</div><div class="mini-row blue"></div><div class="mini-row"></div><div class="mini-row"></div><div class="mini-row green"></div><div class="panel-title" style="margin-top:12px">Top 5 / Scores</div><div class="mini-row"></div><div class="mini-row"></div><div class="mini-row"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-card option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <h3>B. 纵向时间轴 + 双栏详情</h3>
+      <p>长 Agent 轨迹容易向下阅读，但双路召回的横向关系不够直观。</p>
+    </div>
+    <div class="wire">
+      <div class="toolbar"><div class="field">P4 上海住宿上限？</div><div class="pill">RAG</div><div class="pill run">Run</div></div>
+      <div class="two-col" style="grid-template-columns:1fr 1.25fr">
+        <div class="panel timeline">
+          <div class="t-step">Dense + Sparse</div><div class="t-step">RRF Fusion</div><div class="t-step">Reranker</div><div class="t-step">Evidence Gate</div><div class="t-step">Generator</div><div class="t-step">Validator</div>
+        </div>
+        <div><div class="panel" style="min-height:165px"><div class="panel-title">SELECTED STAGE</div><div class="mini-row blue"></div><div class="mini-row"></div><div class="mini-row"></div><div class="mini-row green"></div></div><div class="panel answer"><div class="panel-title">RESULT</div><div class="mini-row"></div><div class="mini-row green"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-card option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <h3>C. 全宽总览 + 下方结果/详情</h3>
+      <p>流程图空间最大，但点击节点后视线要在上下区域之间移动。</p>
+    </div>
+    <div class="wire">
+      <div class="toolbar"><div class="field">制度是否允许宠物寄养费？</div><div class="pill">RAG</div><div class="pill run">Run</div></div>
+      <div class="panel wide-pipeline"><div class="panel-title">PIPELINE OVERVIEW</div><div class="lane"><span class="node good">Dense</span><span class="node good">Sparse</span><span class="arrow">→</span><span class="node good">RRF</span><span class="arrow">→</span><span class="node active">Rerank</span><span class="arrow">→</span><span class="node warn">Gate</span><span class="arrow">→</span><span class="node">Refuse</span></div><div class="lane"><span class="node">Agent Plan</span><span class="arrow">→</span><span class="node">Action</span><span class="arrow">→</span><span class="node">Observation</span><span class="arrow">→</span><span class="node">Finish</span></div></div>
+      <div class="bottom-split"><div class="panel answer" style="border-left-color:#d9a62a"><div class="panel-title">SAFE REFUSAL</div><div class="mini-row"></div><div class="mini-row"></div></div><div class="panel"><div class="panel-title">INSPECTOR</div><div class="mini-row blue"></div><div class="mini-row"></div><div class="mini-row green"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="note"><strong>建议：</strong>选 A。桌面面试演示时，它能同时保留横向证据链、Agent 轨迹、最终答案和常驻 Inspector；小屏适配可在后续设计为 Inspector 抽屉。</div>

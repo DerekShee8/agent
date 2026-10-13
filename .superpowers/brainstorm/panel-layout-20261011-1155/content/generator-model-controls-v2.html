@@ -1,0 +1,111 @@
+<style>
+  :root {
+    --ink: #172033;
+    --muted: #67748a;
+    --line: #d8e0eb;
+    --surface: #ffffff;
+    --canvas: #f3f6fa;
+    --blue: #3569dc;
+    --blue-soft: #e9f0ff;
+    --green: #167356;
+    --green-soft: #eaf8f1;
+    --amber: #9a6500;
+    --amber-soft: #fff4d8;
+  }
+  * { box-sizing: border-box; }
+  .subtitle { color: var(--muted); margin-top: -6px; }
+  .callout {
+    display: flex; align-items: center; gap: 10px; margin: 14px 0;
+    padding: 11px 14px; border: 1px solid #aac2f5; border-radius: 11px;
+    background: var(--blue-soft); color: #244d9f; font-size: 14px;
+  }
+  .demo-shell { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--canvas); }
+  .topbar {
+    display: grid; grid-template-columns: minmax(220px,1fr) auto auto minmax(230px,auto) auto auto;
+    gap: 9px; align-items: end; padding: 14px; background: var(--ink); color: white;
+  }
+  .control label { display: block; margin: 0 0 5px 2px; color: #b9c6da; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+  .control-box { min-height: 38px; display: flex; align-items: center; gap: 7px; padding: 8px 10px; border-radius: 8px; background: white; color: #26334a; font-size: 13px; white-space: nowrap; }
+  .question .control-box { color: #68758b; min-width: 250px; }
+  .segment { display: flex; padding: 3px; border-radius: 9px; background: #2a3852; }
+  .segment span { padding: 7px 10px; border-radius: 7px; color: #bdc8d9; font-size: 12px; }
+  .segment .selected { color: #fff; background: var(--blue); font-weight: 700; }
+  .verified { color: var(--green); font-size: 11px; font-weight: 700; }
+  .caret { margin-left: auto; color: #738096; }
+  .run { min-height: 38px; padding: 0 17px; border: 0; border-radius: 8px; background: var(--blue); color: white; font-weight: 750; }
+  .network { min-height: 38px; display: flex; align-items: center; padding: 0 11px; border-radius: 8px; background: #155f49; font-size: 11px; font-weight: 750; }
+  .annotation-row { display: grid; grid-template-columns: 1fr 255px 245px; gap: 12px; padding: 10px 16px 4px; color: #49617e; font-size: 11px; }
+  .annotation { text-align: center; }
+  .annotation:before { content: "↑"; display: block; color: var(--blue); font-weight: 900; }
+  .workspace { display: grid; grid-template-columns: 2.1fr 1fr; gap: 12px; padding: 12px 14px 15px; }
+  .panel { min-height: 180px; padding: 13px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); }
+  .panel-title { font-size: 11px; font-weight: 800; letter-spacing: .05em; color: var(--ink); }
+  .lane { display: flex; gap: 7px; align-items: center; margin-top: 18px; flex-wrap: wrap; }
+  .node { padding: 8px 10px; border: 1px solid #bcc8d8; border-radius: 7px; font-size: 11px; font-weight: 700; }
+  .node.good { background: var(--green-soft); border-color: #74b89d; color: #155c48; }
+  .node.active { background: var(--blue-soft); border-color: #7fa1e7; color: #2854ad; }
+  .arrow { color: #8693a6; }
+  .inspector-row { height: 9px; margin-top: 10px; border-radius: 6px; background: #e1e7ef; }
+  .inspector-row.blue { width: 82%; background: #9fb9ef; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+  .state-card { padding: 15px; border: 1px solid var(--line); border-radius: 13px; background: white; }
+  .state-card.recommended { border: 2px solid #6e96ea; box-shadow: 0 7px 22px rgba(38, 73, 139, .08); }
+  .state-title { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom: 11px; color: var(--ink); font-weight: 800; }
+  .badge { padding: 3px 8px; border-radius: 20px; background: var(--green-soft); color: var(--green); font-size: 10px; }
+  .badge.online { background: var(--amber-soft); color: var(--amber); }
+  .field-row { display:grid; grid-template-columns: 118px 1fr; align-items:center; gap:9px; margin-top:8px; font-size:12px; }
+  .field-label { color: var(--muted); }
+  .field-value { padding:9px 10px; border:1px solid var(--line); border-radius:8px; background:#f8fafc; color:#27344a; }
+  .readonly { color:#718096; font-size:10px; margin-left:6px; }
+  .rule-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+  .rule { padding:10px 12px; border-radius:9px; background:#f5f7fa; color:#536177; font-size:11px; line-height:1.45; }
+  .rule strong { display:block; color:#25334a; margin-bottom:3px; }
+  @media (max-width: 1080px) {
+    .topbar { grid-template-columns: 1fr 1fr 1fr; }
+    .question { grid-column: 1 / -1; }
+    .annotation-row { display:none; }
+    .compare, .workspace, .rule-strip { grid-template-columns: 1fr; }
+  }
+</style>
+
+<h2>LLM 切换入口：固定在顶部运行控制栏</h2>
+<p class="subtitle">沿用已选择的「横向主链 + 固定 Inspector」布局。切换只作用于 Generator，不改变证据链。</p>
+
+<div class="callout"><strong>你要找的位置：</strong> 问题输入框右侧，先选 Generator 的 Local / Online，再看对应的 Model 或 Provider Profile。</div>
+
+<div class="demo-shell">
+  <div class="topbar">
+    <div class="control question"><label>Question</label><div class="control-box">解释 CLAIM-1024 为什么被拒绝</div></div>
+    <div class="control"><label>Mode</label><div class="control-box">Agent <span class="caret">⌄</span></div></div>
+    <div class="control"><label>Generator</label><div class="segment"><span class="selected">Local</span><span>Online</span></div></div>
+    <div class="control"><label>Model</label><div class="control-box">Qwen3-4B Q5_K_M <span class="verified">已验证</span></div></div>
+    <button class="run">Run</button>
+    <div class="network">● OFFLINE</div>
+  </div>
+  <div class="annotation-row"><span></span><span class="annotation">选择 LLM 来源</span><span class="annotation">显示实际使用的模型</span></div>
+  <div class="workspace">
+    <div class="panel"><div class="panel-title">RAG PIPELINE</div><div class="lane"><span class="node good">Dense</span><span class="node good">Sparse</span><span class="arrow">→</span><span class="node good">RRF</span><span class="arrow">→</span><span class="node active">Reranker</span><span class="arrow">→</span><span class="node">Evidence Gate</span><span class="arrow">→</span><span class="node">Generator</span></div></div>
+    <div class="panel"><div class="panel-title">INSPECTOR · GENERATOR</div><div class="inspector-row blue"></div><div class="inspector-row"></div><div class="inspector-row"></div><div class="inspector-row" style="width:62%"></div></div>
+  </div>
+</div>
+
+<div class="compare">
+  <div class="state-card recommended">
+    <div class="state-title"><span>本地状态</span><span class="badge">无网络</span></div>
+    <div class="field-row"><span class="field-label">Generator</span><span class="field-value">Local</span></div>
+    <div class="field-row"><span class="field-label">Model</span><span class="field-value">Qwen3-4B Q5_K_M <span class="readonly">首版只读</span></span></div>
+    <div class="field-row"><span class="field-label">原因</span><span class="field-value">目前唯一已验收的本地生成模型</span></div>
+  </div>
+  <div class="state-card">
+    <div class="state-title"><span>在线状态</span><span class="badge online">需要联网</span></div>
+    <div class="field-row"><span class="field-label">Generator</span><span class="field-value">Online</span></div>
+    <div class="field-row"><span class="field-label">Provider Profile</span><span class="field-value">deepseek-relay-demo <span class="caret">⌄</span></span></div>
+    <div class="field-row"><span class="field-label">Model</span><span class="field-value">由 Profile 自动带出 <span class="readonly">只读</span></span></div>
+  </div>
+</div>
+
+<div class="rule-strip">
+  <div class="rule"><strong>可以切换</strong>Local / Online；在线时切换已登记的 Provider Profile。</div>
+  <div class="rule"><strong>保持固定</strong>Dense Retriever 和 Reranker，防止运行时偷偷改变证据质量。</div>
+  <div class="rule"><strong>首版不开放</strong>任意 endpoint、model ID 或 API key 输入；密钥仍只读环境变量。</div>
+</div>

@@ -1,0 +1,19 @@
+<style>
+  .waiting { max-width: 760px; margin: 42px auto; text-align: center; }
+  .lock { display: inline-block; padding: 8px 13px; border-radius: 999px; background: #dcfce7; color: #166534; font-weight: 700; margin-bottom: 16px; }
+  .summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: left; margin-top: 22px; }
+  .item { border: 1px solid var(--border); border-radius: 10px; padding: 14px; background: var(--card-bg); }
+  .item strong { display: block; margin-bottom: 5px; }
+  .muted { color: var(--muted); }
+</style>
+<section class="waiting">
+  <div class="lock">✓ 面板方向已锁定</div>
+  <h2>流水线工作台 + 固定右侧检查器</h2>
+  <p class="muted">视觉讨论暂告一段落。接下来回到对话中汇总完整系统设计；书面设计获批前不会实施产品代码。</p>
+  <div class="summary">
+    <div class="item"><strong>主视图</strong>顶部查询、横向处理链、回答与来源。</div>
+    <div class="item"><strong>右侧检查器</strong>随节点切换输入、输出、分数、耗时和错误。</div>
+    <div class="item"><strong>演示重点</strong>双路召回、重排、Evidence Gate、生成与 Grounding Validator。</div>
+    <div class="item"><strong>Agent 轨迹</strong>展示工具调用与 Observation，不展示隐藏推理。</div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+{
+  "canonical_case": {
+    "employee_id": "EMP-003",
+    "claim_id": "CLAIM-1024",
+    "trip_id": "TRIP-2409-017",
+    "hotel_limit_cny": 600,
+    "hotel_over_limit_cny": 80,
+    "expected_rejection_code": "HOTEL_OVER_LIMIT",
+    "required_policy_sections": [
+      "POLICY-TRAVEL-04 §3.2",
+      "POLICY-TRAVEL-04 §3.3",
+      "POLICY-EXPENSE-02 §4.1"
+    ]
+  }
+}

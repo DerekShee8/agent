@@ -1,0 +1,13 @@
+# This relay profile is unverified and intentionally disabled.
+# Review its provider terms, endpoint, pricing, and model identifier before use.
+[profiles.relay_example]
+enabled=false
+base_url='https://relay.example.invalid/v1'
+model_id='provider-advertised-model-id'
+api_key_env='RAG_AGENT_RELAY_API_KEY'
+privacy_terms_url='https://relay.example.invalid/privacy'
+input_price_per_million='0'
+output_price_per_million='0'
+request_limit=0
+budget_limit_cny='0'
+synthetic_data_only=true

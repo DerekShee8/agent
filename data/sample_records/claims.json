@@ -1,0 +1,37 @@
+{
+  "claims": [
+    {
+      "claim_id": "CLAIM-1001",
+      "employee_id": "EMP-001",
+      "trip_id": "TRIP-2408-003",
+      "hotel_nightly_amount": 820,
+      "hotel_nights": 2,
+      "transport_amount": 45,
+      "receipt_present": false,
+      "status": "approved",
+      "rejection_code": null
+    },
+    {
+      "claim_id": "CLAIM-1024",
+      "employee_id": "EMP-003",
+      "trip_id": "TRIP-2409-017",
+      "hotel_nightly_amount": 680,
+      "hotel_nights": 2,
+      "transport_amount": 120,
+      "receipt_present": true,
+      "status": "rejected",
+      "rejection_code": "HOTEL_OVER_LIMIT"
+    },
+    {
+      "claim_id": "CLAIM-1088",
+      "employee_id": "EMP-008",
+      "trip_id": "TRIP-2410-006",
+      "hotel_nightly_amount": 420,
+      "hotel_nights": 1,
+      "transport_amount": 80,
+      "receipt_present": false,
+      "status": "rejected",
+      "rejection_code": "MISSING_RECEIPT"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling>=1.28,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "enterprise-rag-agent-demo"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[project.optional-dependencies]
+online-generator = [
+    "openai==2.54.0",
+]
+local-generator = [
+    "llama-cpp-python==0.3.36; sys_platform == 'win32' and platform_machine == 'AMD64'",
+]
+retrieval = [
+    "numpy==2.3.3",
+    "safetensors==0.8.0",
+    "torch==2.14.1",
+    "transformers==4.39.1",
+]
+panel = [
+    "nicegui==3.18.0",
+]
+
+[project.scripts]
+rag-agent = "enterprise_rag.cli:console_main"
+
+[dependency-groups]
+dev = [
+    "pytest==9.1.1",
+    "pytest-asyncio==1.4.0",
+    "ruff==0.16.8",
+    "ty==0.0.83",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/enterprise_rag"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --import-mode=importlib -m 'not live'"
+asyncio_mode = "auto"
+markers = [
+    "live: marks tests that require live external services",
+]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+extend-exclude = ["docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+
+[tool.ty.environment]
+python-version = "3.12"
+
+[tool.uv.sources]
+llama-cpp-python = { url = "https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.36-cu124/llama_cpp_python-0.3.36-py3-none-win_amd64.whl" }

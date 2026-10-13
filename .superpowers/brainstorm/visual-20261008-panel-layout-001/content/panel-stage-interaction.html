@@ -1,0 +1,65 @@
+<style>
+  .intro-note { color: var(--muted); margin: 0 0 18px; }
+  .layout-card { min-height: 420px; }
+  .mini { height: 270px; border-radius: 10px; background: #0f172a; color: #dbeafe; padding: 11px; display: flex; flex-direction: column; gap: 7px; font-size: 10px; }
+  .top { display: flex; justify-content: space-between; align-items: center; color: #f8fafc; font-weight: 700; }
+  .badge { color: #86efac; border: 1px solid #166534; border-radius: 999px; padding: 2px 6px; font-weight: 500; }
+  .query { padding: 7px; border: 1px solid #334155; border-radius: 6px; background: #111827; }
+  .pipe { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .stage { padding: 6px 2px; text-align: center; background: #1e293b; border: 1px solid #334155; border-radius: 5px; }
+  .stage.active { color: #e0f2fe; border-color: #38bdf8; box-shadow: 0 0 0 1px #38bdf8 inset; }
+  .body-right { display: grid; grid-template-columns: 1.4fr .8fr; gap: 6px; flex: 1; min-height: 0; }
+  .panel { position: relative; padding: 7px; border: 1px solid #334155; border-radius: 6px; background: #111827; overflow: hidden; }
+  .panel strong { display: block; color: #f8fafc; margin-bottom: 5px; }
+  .line { height: 5px; background: #263449; border-radius: 4px; margin: 5px 0; }
+  .line.short { width: 58%; }
+  .metric { margin: 4px 0; padding: 5px; background: #172033; border-left: 3px solid #38bdf8; }
+  .inline-detail { border: 1px solid #38bdf8; background: #102033; padding: 7px; border-radius: 6px; }
+  .answer { display: grid; grid-template-columns: 1fr .85fr; gap: 6px; flex: 1; min-height: 0; }
+  .overlay-base { display: grid; grid-template-columns: 1fr .7fr; gap: 6px; flex: 1; opacity: .38; }
+  .drawer { position: absolute; top: 6px; right: 6px; bottom: 6px; width: 62%; background: #162337; border: 1px solid #38bdf8; border-radius: 6px; padding: 8px; box-shadow: -8px 0 18px rgba(0,0,0,.35); }
+  .rec { color: #0f766e; font-weight: 700; font-size: 12px; margin-bottom: 6px; }
+</style>
+
+<section>
+  <h2>点击流水线节点后，详情如何出现？</h2>
+  <p class="intro-note">示例都点击了“重排”节点，展示 Top 5、rerank score、耗时和模型版本。</p>
+
+  <div class="cards">
+    <article class="card layout-card" data-choice="A1：固定右侧检查器" onclick="toggleSelect(this)">
+      <div class="card-image"><div class="mini">
+        <div class="top"><span>Enterprise RAG Agent</span><span class="badge">RUN SUCCESS</span></div>
+        <div class="query">解释 CLAIM-1024 为什么被拒绝？</div>
+        <div class="pipe"><div class="stage">召回</div><div class="stage active">重排</div><div class="stage">证据门</div><div class="stage">生成</div><div class="stage">验证</div></div>
+        <div class="body-right">
+          <div class="panel"><strong>回答与引用</strong><div class="line"></div><div class="line"></div><div class="line short"></div><div class="metric">[POLICY-TRAVEL-04 §3.2]</div></div>
+          <div class="panel"><strong>Reranker 详情</strong><div>Top 5 · 184 ms</div><div class="metric">#1 score .92</div><div class="metric">#2 score .81</div><div class="metric">模型 revision</div></div>
+        </div>
+      </div></div>
+      <div class="card-body"><div class="rec">★ 推荐</div><div class="card-title">A1. 固定右侧检查器</div><div class="card-description">点击节点只更新右栏，回答和整条流水线一直可见。上下文稳定，最适合边讲解边点阶段。</div></div>
+    </article>
+
+    <article class="card layout-card" data-choice="A2：节点下方展开" onclick="toggleSelect(this)">
+      <div class="card-image"><div class="mini">
+        <div class="top"><span>Enterprise RAG Agent</span><span class="badge">RUN SUCCESS</span></div>
+        <div class="query">解释 CLAIM-1024 为什么被拒绝？</div>
+        <div class="pipe"><div class="stage">召回</div><div class="stage active">重排</div><div class="stage">证据门</div><div class="stage">生成</div><div class="stage">验证</div></div>
+        <div class="inline-detail"><strong>Reranker 详情</strong><div class="metric">#1 POLICY-TRAVEL-04 · .92</div><div class="metric">#2 FAQ-EXPENSE-07 · .81</div></div>
+        <div class="answer"><div class="panel"><strong>回答</strong><div class="line"></div><div class="line short"></div></div><div class="panel"><strong>引用</strong><div class="line"></div></div></div>
+      </div></div>
+      <div class="card-body"><div class="card-title">A2. 节点下方展开</div><div class="card-description">详情空间更宽，排名列表容易比较；展开后会把回答向下推，讲解时页面容易跳动。</div></div>
+    </article>
+
+    <article class="card layout-card" data-choice="A3：覆盖式抽屉" onclick="toggleSelect(this)">
+      <div class="card-image"><div class="mini">
+        <div class="top"><span>Enterprise RAG Agent</span><span class="badge">RUN SUCCESS</span></div>
+        <div class="query">解释 CLAIM-1024 为什么被拒绝？</div>
+        <div class="pipe"><div class="stage">召回</div><div class="stage active">重排</div><div class="stage">证据门</div><div class="stage">生成</div><div class="stage">验证</div></div>
+        <div class="panel" style="flex:1"><div class="overlay-base"><div><strong>回答</strong><div class="line"></div><div class="line"></div></div><div><strong>引用</strong><div class="line"></div></div></div><div class="drawer"><strong>Reranker 详情 ×</strong><div>Top 5 · 184 ms</div><div class="metric">#1 score .92</div><div class="metric">#2 score .81</div><div class="metric">查看原文片段</div></div></div>
+      </div></div>
+      <div class="card-body"><div class="card-title">A3. 覆盖式抽屉</div><div class="card-description">详情最聚焦、可容纳更多诊断字段；会遮住回答，需要开关抽屉，现场演示动作更多。</div></div>
+    </article>
+  </div>
+
+  <div class="actions"><button class="primary" onclick="submitChoice()">确认详情交互</button></div>
+</section>

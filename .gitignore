@@ -1,0 +1,34 @@
+
+# Python virtual environments
+.venv/
+venv/
+
+# Python caches
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+
+# Local runtime files
+.local/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Sensitive provider configuration
+config/providers.toml
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+
+# Archives
+*.zip
+*.rar
+*.7z
